@@ -1,6 +1,6 @@
 // TODO: the components in Reacts Declare using functions.
 // TODO: In react using className instead of class
-// TODO: "<></>" This is the shortcut for  <Fractments></Fractments>  It is used when we want to use multiple elements
+// TODO: In react doesn't have the for loops so to make the rendering posible we need to used the fuctions to rander the data
 /*
 Note: That each react'
 Components can return only one element at a time.
@@ -15,7 +15,7 @@ function ListGroup() {
   ]
   return (
     <>
-      <h1 className="text-primary">List Group</h1>
+      <h1 className="text-primary text-center">List Group</h1>
       <div className="container">
         <ul className="list-group">
           {cities.map(item=><li className="list-group-item" key={item}>{item}</li>)}

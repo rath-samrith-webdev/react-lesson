@@ -1,13 +1,13 @@
-import ListGroup from './components/ListGroup'
-import './App.css'
+import ListGroup from "./components/ListGroup";
+import ListGroupFtCondi from "./components/ListGroutFtCondi";
 
 function App() {
-
   return (
     <>
-      <ListGroup/>
+      <ListGroupFtCondi />
+      <ListGroup />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
