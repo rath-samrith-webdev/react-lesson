@@ -1,4 +1,9 @@
-.list-group-item {
+.list-style{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.listGroupItem {
   padding: 10px;
   text-align: center;
   font-family: sans-serif;
@@ -7,7 +12,7 @@
   border: 1px solid crimson;
   margin-top: 10px;
 }
-.list-group-item:hover {
+.listGroupItem:hover {
   background-color: crimson;
   color: #fff;
   cursor: pointer;
