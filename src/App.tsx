@@ -1,20 +1,29 @@
+import { useState } from "react";
 import Button from "./components/Button";
+import Alert from "./components/Alert";
 function App() {
+  const [isAlert, setAlert] = useState(false);
   const buttonList = [
     {
       text: "Primary",
       classText: "btn-primary",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
     {
       text: "Secondary",
       classText: "btn-secondary",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
     {
       text: "Success",
       classText: "btn-success",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
     {
       text: "Danger",
@@ -24,32 +33,45 @@ function App() {
     {
       text: "Warning",
       classText: "btn-warning",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
     {
       text: "Light",
       classText: "btn-light",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
     {
       text: "Dark",
       classText: "btn-dark",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
     {
       text: "Link",
       classText: "btn-link",
-      onClick: () => console.log("primary"),
+      onClick: () => {
+        setAlert(!isAlert);
+      },
     },
   ];
   return (
-    <div className="container d-flex flex-row gap-5 align-center justify-content-center p-5">
-      {buttonList.map(({ text, classText, onClick }) => (
-        <Button key={text} classText={classText} onClick={onClick}>
-          <span>{text}</span>
-        </Button>
-      ))}
-    </div>
+    <>
+      <Alert isShow={isAlert} dismiss={() => setAlert(!isAlert)}>
+        Alert
+      </Alert>
+      <div className="container d-flex flex-row gap-5 align-center justify-content-center p-5">
+        {buttonList.map(({ text, classText, onClick }) => (
+          <Button key={text} classText={classText} onClick={onClick}>
+            <span>{text}</span>
+          </Button>
+        ))}
+      </div>
+    </>
   );
 }
 
