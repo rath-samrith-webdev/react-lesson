@@ -46,7 +46,7 @@ function App() {
     <div className="container d-flex flex-row gap-5 align-center justify-content-center p-5">
       {buttonList.map(({ text, classText, onClick }) => (
         <Button key={text} classText={classText} onClick={onClick}>
-          {text}
+          <span>{text}</span>
         </Button>
       ))}
     </div>

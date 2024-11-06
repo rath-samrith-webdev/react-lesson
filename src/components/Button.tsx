@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 interface TextProp {
-  children: string;
+  children: ReactNode;
   classText: string;
   onClick: () => void;
 }
