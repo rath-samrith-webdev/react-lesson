@@ -1,5 +1,3 @@
-import  {useState} from "react";
-
 /**
  *@UpdateObj is a components
  *when creating an object
@@ -24,21 +22,31 @@ import  {useState} from "react";
  * *@setPerson({...person,name:'new name'})
  * * the {...person} is use spread the object,
  */
+import {useState} from "react";
+
 
 const UpdateObj = () => {
-    const [person, setPerson] = useState({
-        name: 'John',
-        age: 20,
-        gender: 'male'
-    })
+    const [tags,setTags] = useState( ['happy','cheerful'])
+    const handleClick = () => {
+        /**
+         * Insert @tag
+         */
+        setTags([...tags, 'sad'])
+        /**
+         * Remove Tags
+         */
+        setTags(tags.filter(tag => tag !== 'happy'))
+
+        /**
+         * Update Tag
+         */
+        setTags(tags.map(tag => tag === 'happy' ? 'happiness' : tag))
+    }
+
     return <>
-        <h1>Updating Object</h1>
-        <p>Name: {person.name}</p>
-        <p>Age: {person.age}</p>
-        <p>Gender: {person.gender}</p>
-        <button className="btn btn-primary me-3"  onClick={() => setPerson({...person, name: 'Jane'})}>Update Name</button>
-        <button className="btn btn-primary me-3"    onClick={() => setPerson({...person, age: 21})}>Update Age</button>
-        <button className="btn btn-primary me-3"   onClick={() => setPerson({...person, gender: 'female'})}>Update Gender</button>
+        <div className="d-flex gap-2 justify-content-between align-content-center">
+            {tags.map((tag) => <div onClick={handleClick} key={tag} className="badge badge-light text-bg-success p-2 rounded-md">{tag}</div>)}
+        </div>
     </>
 }
 export default UpdateObj;
