@@ -1,5 +1,7 @@
 import { useState } from "react"; // Import useState
 
+import {produce} from "immer";
+
 // Extract Interface
 interface Bug {
     id: number;
@@ -17,7 +19,12 @@ const initialBugs: Bug[] = [
 function ArrayObjects() {
     const [bugs, setBugs] = useState<Bug[]>(initialBugs); // Use the extracted constant and interface
     const handleClick = () => {
-        setBugs(bugs.map(bug =>bug.id===1 ?  { ...bug, fixed: !bug.fixed }:bug));
+        setBugs(produce(draft => {
+            const bug = draft.find(bug => bug.id === 1);
+            if (bug) {
+                bug.fixed = true;
+            }
+        }));
     }
     return <>
         <div className="d-flex gap-2 justify-content-between align-content-center">
