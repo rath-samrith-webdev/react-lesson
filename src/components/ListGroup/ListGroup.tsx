@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Like from "../Like";
 import UpdateObj from "../UpdatingObject";
+import ArrayObjects from "../UpdateArrayObj";
 interface ItemsProp {
   items: string[];
 }
@@ -21,6 +22,7 @@ function ListGroup({ items }: ItemsProp) {
           >
             {item}
               <UpdateObj />
+              <ArrayObjects />
             <Like isClicked={false} />
           </li>
         ))}
