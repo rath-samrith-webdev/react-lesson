@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./ListGroup.css";
+import Like from "../Like";
 interface ItemsProp {
   items: string[];
 }
@@ -14,11 +14,12 @@ function ListGroup({ items }: ItemsProp) {
             onClick={() => setIndex(index)}
             className={
               selectedInd === index
-                ? "list-group-item active"
-                : "list-group-item"
+                ? "list-group-item d-flex align-items-center justify-content-between active"
+                : "list-group-item d-flex align-items-center justify-content-between"
             }
           >
             {item}
+            <Like isClicked={false} />
           </li>
         ))}
       </ul>
