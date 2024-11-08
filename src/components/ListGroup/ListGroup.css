@@ -1,0 +1,22 @@
+.list-group-item {
+  padding: 10px;
+  text-align: center;
+  font-family: sans-serif;
+  list-style: none;
+  border-radius: 10px;
+  border: 1px solid crimson;
+  margin-top: 10px;
+}
+.list-group-item:hover {
+  background-color: crimson;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+}
+
+.active {
+  background-color: crimson;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s ease-in-out;
+}
