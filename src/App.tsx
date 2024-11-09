@@ -1,33 +1,76 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  /**
+   * @example1
+   * game @{objects}
+   * 
+   */
+  const [game, setGame] = useState({
+    id: 1,
+    player: {
+      name: "Jonh",
+    }
+  })
+  /**
+   * @example2
+   * pizza @{object}
+   * 
+   */
+  const [pizza, setPizza] = useState({
+    name: "Pizza name",
+    toppings: ['pizza topping']
+  })
+
+  /**
+   * @example3
+   * carts @objects
+   */
+  const [carts, setCarts] = useState({
+    discount: .1,
+    items: [
+      {
+        id: 1, title: 'Product 1', quantity: 1
+      },
+      {
+        id: 2, title: 'Product 2', quantity: 1
+      }
+    ]
+  })
+  const handleClick = () => {
+    /**
+     * @example1
+     * @setGame is used to update the game variable
+     * you need use the spread to simplify the logic
+     */
+    setGame({
+      ...game, player: { ...game.player, name: 'July' }
+    })
+    /**
+     * @example2
+     * @setPizza is used to update pizza virable
+     * to update an array you to first spread the @value of the 
+     * @array and then update it.
+     * 
+     */
+    setPizza({
+      ...pizza, toppings: [...pizza.toppings, 'new pizza topping']
+    })
+
+    /**
+     * @example3
+     * @setCarts is used to update carts variable
+     * when updating @array of @object you need to first map it down to a single objects
+     * first to update it one at a times
+     */
+    setCarts({
+      ...carts, items: carts.items.map(item => item.id === 1 ? { ...item, quantity: 2 } : item)
+    })
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <button onClick={handleClick}>{game.player.name}</button>
     </>
   )
 }
