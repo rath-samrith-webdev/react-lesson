@@ -1,23 +1,32 @@
 import {FieldValues, useForm} from "react-hook-form";
 
+interface FormData{
+    name: string;
+    age: string;
+}
 const Form = () => {
-  const {register,handleSubmit}=useForm()
+  const {register,handleSubmit,formState:{errors}}=useForm<FormData>()
     const onSubmit=(data:FieldValues)=>{
       console.log(data)
     }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3">
         <label htmlFor="name" className="form-label">
           Name
         </label>
-        <input {...register('name')} id="name" type="text" className="form-control" />
+        <input {...register('name',{required:true,minLength:3})} id="name" type="text" className="form-control" />
+          {errors.name?.type==='required'&&<small>name is required</small>}
+          {errors.name?.type==='minLength'&&<small>name must be 3 character</small>}
       </div>
       <div className="mb-3">
         <label htmlFor="age" className="form-label">
           Age
         </label>
-        <input {...register('age')}  type="number" id="age" className="form-control" />
+        <input {...register('age',{required:true,min:5})}  type="number" id="age" className="form-control" />
+          {errors.age?.type==='required'&&<small className={'text-danger'}>age is required</small>}
+          {errors.age?.type==='min'&&<small className={'text-danger'}>age must be 5 or older</small>}
       </div>
       <button type="submit" className="btn btn-primary">
         Submit
