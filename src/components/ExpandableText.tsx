@@ -8,15 +8,15 @@ interface Prop {
 
 const ExpandableText = ({ maxLength = 100, children, show }: Prop) => {
   const [shows, setShows] = useState(show);
+  if (children.length <= maxLength) return <p>{children}</p>;
+  const text = shows ? children : children.substring(0, maxLength);
   return (
-    <>
-      {maxLength && !shows ? (
-        <p>{children.substring(0, maxLength)}</p>
-      ) : (
-        <p>{children}</p>
-      )}
-      <button onClick={() => setShows(!shows)}>{shows?'Show Less':'Show All'}</button>
-    </>
+    <p>
+      {text}
+      <button onClick={() => setShows(!shows)}>
+        {shows ? "show less" : "show more"}
+      </button>
+    </p>
   );
 };
 
