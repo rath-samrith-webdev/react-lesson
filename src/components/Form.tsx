@@ -1,14 +1,29 @@
-import {FieldValues, useForm} from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-interface FormData{
-    name: string;
-    age: string;
-}
+const schema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "Name must be at least 3 characters or greater." }),
+  age: z
+    .number({
+      required_error: "Age is required",
+      invalid_type_error: "Age must be a number",
+    })
+    .min(18, { message: "Age must be at least 18 or older" }),
+});
+
+type FormData = z.infer<typeof schema>;
 const Form = () => {
-  const {register,handleSubmit,formState:{errors}}=useForm<FormData>()
-    const onSubmit=(data:FieldValues)=>{
-      console.log(data)
-    }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const onSubmit = (data: FieldValues) => {
+    console.log(data);
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -16,17 +31,26 @@ const Form = () => {
         <label htmlFor="name" className="form-label">
           Name
         </label>
-        <input {...register('name',{required:true,minLength:3})} id="name" type="text" className="form-control" />
-          {errors.name?.type==='required'&&<small>name is required</small>}
-          {errors.name?.type==='minLength'&&<small>name must be 3 character</small>}
+        <input
+          {...register("name")}
+          id="name"
+          type="text"
+          className="form-control"
+        />
+        {errors.name && (
+          <small className={"text-danger"}>{errors.name.message}</small>
+        )}
       </div>
       <div className="mb-3">
-        <label htmlFor="age" className="form-label">
-          Age
-        </label>
-        <input {...register('age',{required:true,min:5})}  type="number" id="age" className="form-control" />
-          {errors.age?.type==='required'&&<small className={'text-danger'}>age is required</small>}
-          {errors.age?.type==='min'&&<small className={'text-danger'}>age must be 5 or older</small>}
+        <input
+          {...register("age", { valueAsNumber: true })}
+          id="age"
+          type="number"
+          className="form-control"
+        />
+        {errors.age && (
+          <small className={"text-danger"}>{errors.age.message}</small>
+        )}
       </div>
       <button type="submit" className="btn btn-primary">
         Submit
