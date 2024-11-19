@@ -37,6 +37,16 @@ const Table = ({ items, onDelete }: Props) => {
               </td>
             </tr>
           ))}
+          <tr className="primary">
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td colSpan={4}>
+              {items
+                .map(({ price }) => price)
+                .reduce((acc, price) => acc + price, 0)}
+            </td>
+          </tr>
         </tbody>
       </table>
     </>

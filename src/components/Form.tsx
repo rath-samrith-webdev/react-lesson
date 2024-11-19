@@ -1,22 +1,16 @@
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
-type Expense = {
-  description: string;
-  price: number;
-  category: string;
-};
+
 interface ExpenseProps {
-  expense: Expense;
-  formSubmission: () => void;
+  formSubmission: (data: FieldValues) => void;
 }
 
 const schema = z.object({
   description: z
     .string()
     .min(3, { message: "Name must be at least 3 characters or greater." }),
-  expense: z
+  price: z
     .number({
       required_error: "Age is required",
       invalid_type_error: "Age must be a number",
@@ -26,15 +20,17 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
-const Form = ({ expense, formSubmission }: ExpenseProps) => {
-  const [item] = useState(expense);
+const Form = ({ formSubmission }: ExpenseProps) => {
   const {
     register,
-    handleSubmit,
+    handleSubmit, reset,
     formState: { errors, isValid },
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   return (
-    <form onSubmit={handleSubmit(formSubmission)}>
+    <form onSubmit={handleSubmit(data => {
+        formSubmission(data);
+            reset()
+    })}>
       <div className="mb-3">
         <label htmlFor="description" className="form-label">
           Description
@@ -43,7 +39,6 @@ const Form = ({ expense, formSubmission }: ExpenseProps) => {
           {...register("description")}
           id="description"
           type="text"
-          value={item.description}
           className="form-control"
         />
         {errors.description && (
@@ -55,14 +50,13 @@ const Form = ({ expense, formSubmission }: ExpenseProps) => {
           Age
         </label>
         <input
-          {...register("expense", { valueAsNumber: true })}
+          {...register("price", { valueAsNumber: true })}
           id="expense"
           type="number"
-          value={item.price}
           className="form-control"
         />
-        {errors.expense && (
-          <small className={"text-danger"}>{errors.expense.message}</small>
+        {errors.price && (
+          <small className={"text-danger"}>{errors.price.message}</small>
         )}
       </div>
       <div className="mb-3">
@@ -73,7 +67,6 @@ const Form = ({ expense, formSubmission }: ExpenseProps) => {
           {...register("category")}
           id="category"
           name="category"
-          value={item.category}
           className="form-control"
         >
           <option value={"Utilise"}>Utilise</option>
