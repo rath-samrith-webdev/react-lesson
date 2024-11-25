@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react";
+import Form from "./components/Form.tsx";
+import Table from "./components/Table.tsx";
+import Select from "./components/Select.tsx";
+import { FieldValues } from "react-hook-form";
 function App() {
-  const [count, setCount] = useState(0)
+  const [expenseList, setExpenseList] = useState([
+    {
+      description: "Test",
+      price: 100,
+      category: "Groceries",
+    },
+    {
+      description: "Test1",
+      price: 100,
+      category: "Utilise",
+    },
+  ]);
 
+  const remove = (id: string) => {
+    setExpenseList(expenseList.filter((item) => item.description !== id));
+  };
+  const submitForm = (data: FieldValues) => {
+    const nextList = [
+      ...expenseList,
+      {
+        description: data.description,
+        price: data.price,
+        category: data.category,
+      },
+    ];
+    setExpenseList(nextList);
+  };
+  const [filtered, setFiltered] = useState("All");
+  const filterItem = (cate: string) => {
+    setFiltered(cate);
+  };
+  const filteredList =
+    filtered === "All"
+      ? expenseList
+      : expenseList.filter(({ category }) => category === filtered);
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Form formSubmission={(data: FieldValues) => submitForm(data)} />
+      <Select filter={filterItem} />
+      <div className="mt-2">
+        <Table items={filteredList} onDelete={remove} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
