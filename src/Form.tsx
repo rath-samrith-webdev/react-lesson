@@ -5,7 +5,7 @@ import {useEffect, useRef} from "react";
  * remains pure
  **/
 const Form=()=>{
-    const refer = useRef<HTMLFormElement>(null);
+    const refer = useRef<HTMLInputElement>(null);
     useEffect(()=>{
         if(refer.current) refer.current.focus()
     })
