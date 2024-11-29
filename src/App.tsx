@@ -1,35 +1,78 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import { useState } from "react";
+import Button from "./components/Button";
+import Alert from "./components/Alert";
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [isAlert, setAlert] = useState(false);
+  const buttonList = [
+    {
+      text: "Primary",
+      classText: "btn-primary",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+    {
+      text: "Secondary",
+      classText: "btn-secondary",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+    {
+      text: "Success",
+      classText: "btn-success",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+    {
+      text: "Danger",
+      classText: "btn-danger",
+      onClick: () => console.log("primary"),
+    },
+    {
+      text: "Warning",
+      classText: "btn-warning",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+    {
+      text: "Light",
+      classText: "btn-light",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+    {
+      text: "Dark",
+      classText: "btn-dark",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+    {
+      text: "Link",
+      classText: "btn-link",
+      onClick: () => {
+        setAlert(!isAlert);
+      },
+    },
+  ];
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Alert isShow={isAlert} dismiss={() => setAlert(!isAlert)}>
+        Alert
+      </Alert>
+      <div className="container d-flex flex-row gap-5 align-center justify-content-center p-5">
+        {buttonList.map(({ text, classText, onClick }) => (
+          <Button key={text} classText={classText} onClick={onClick}>
+            <span>{text}</span>
+          </Button>
+        ))}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
